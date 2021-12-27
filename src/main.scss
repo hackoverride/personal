@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+main {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(38, 38, 48);
+  overflow: hidden;
+  position: fixed;
+}
+
+#background_canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0.7;
+}
+
+#main_head {
+  z-index: 4;
+  color: white;
+  font-family: monospace;
+  position: fixed;
+  top: 10%;
+  text-align: center;
+  width: 100%;
+  h1 {
+    font-size: 3rem;
+  }
+}
