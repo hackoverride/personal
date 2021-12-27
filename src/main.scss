@@ -1,7 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Roboto", monospace;
 }
 
 main {
@@ -16,13 +19,32 @@ main {
   position: fixed;
   top: 0;
   left: 0;
-  opacity: 0.7;
+  opacity: 1;
+}
+
+#pi {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  color: red;
+}
+#fogger {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  height: 15vh;
+  background: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.692),
+    rgba(255, 255, 255, 0.308),
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0)
+  );
 }
 
 #main_head {
   z-index: 4;
   color: white;
-  font-family: monospace;
   position: fixed;
   top: 10%;
   text-align: center;
