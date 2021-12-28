@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+import Tagline from "./components/Tagline";
+import Cv from "./components/Cv";
 
 const Canvas = ({ draw, height, width }) => {
   const canvas = useRef();
@@ -16,6 +18,7 @@ const Canvas = ({ draw, height, width }) => {
 export default function App() {
   const [matrix, setMatrix] = useState([]);
   const [update, setUpdate] = useState(0);
+  const [color, setColor] = useState("rgba(255,255,255,1)");
 
   const fullHeight = window.innerHeight;
   const fullWidth = window.innerWidth;
@@ -31,7 +34,7 @@ export default function App() {
       for (let m of matrix) {
         let newY = m.y - fontsize;
         if (newY < 0) {
-          newY = fullHeight;
+          newY = fullHeight + Math.floor(Math.random() * 200);
         }
         newPositions.push({ ...m, y: newY });
       }
@@ -49,7 +52,7 @@ export default function App() {
     /* Using setTimeout to trigger the animation */
     setTimeout(() => {
       setUpdate(update + 1);
-    }, 50);
+    }, 35);
   }, [setMatrix, update]);
 
   //"Just keep in mind: the more we value things outside our control, the less control we have";
@@ -61,7 +64,7 @@ export default function App() {
 
   const draw = (context) => {
     context.clearRect(0, 0, fullWidth, fullHeight);
-    context.fillStyle = "white";
+    context.fillStyle = color;
     for (let m of matrix) {
       context.fillText(m.char, m.x, m.y);
     }
@@ -78,16 +81,22 @@ export default function App() {
       <header id="main_head">
         <div>
           <h1>Michael W. A. Lund</h1>
+          <Tagline />
         </div>
       </header>
+      <Cv />
       <div id="fogger"></div>
       <div
         id="pi"
-        onMouseOver={() => {
-          setUpdate(update + 1);
+        onClick={() => {
+          if (color === "rgba(255,255,255,1)") {
+            setColor("rgba(255, 200, 200, .1");
+          } else {
+            setColor("rgba(255,255,255,1)");
+          }
         }}
       >
-        {"pi"}
+        &#960;
       </div>
     </main>
   );
