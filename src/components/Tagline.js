@@ -3,7 +3,7 @@ import React from "react";
 export default function Tagline() {
   return (
     <>
-      <span>Fullstack developer | Freelance | Love to level up</span>
+      <span>Fullstack developer {"&&"} Love to level up</span>
       <p className="linkHolder">
         <a href="https://github.com/hackoverride" target="_blank">
           <i className="fab fa-github-square"></i>

@@ -7,13 +7,13 @@ export default function Cv() {
         <h2>Projects</h2>
         <p>
           <h3>In development:</h3>
+
+          <p>
+            <span className="project_name">DigiKort</span> | Digital gift-cards
+          </p>
           <p>
             <span className="project_name">Project Matrix</span> | A way to
             pitch and manage your project ideas
-          </p>
-          <p>
-            <span className="project_name">Electronic Health Journal</span> | An
-            EHJ for the Norwegian kiropractor services
           </p>
         </p>
         <p>
