@@ -24,8 +24,8 @@ export default function App() {
   const fullWidth = window.innerWidth;
   const fontsize = 12;
 
-  let letters = "gdhjusaiohfdiulsahlfdsahjfldhsnjaklhfdklsa";
-  letters = letters.split("");
+  let letters = "Do or do not, there is no try";
+  letters = letters.trim().split("");
 
   useEffect(() => {
     // update the Matrix positions
@@ -52,7 +52,7 @@ export default function App() {
     /* Using setTimeout to trigger the animation */
     setTimeout(() => {
       setUpdate(update + 1);
-    }, 35);
+    }, 25);
   }, [setMatrix, update]);
 
   //"Just keep in mind: the more we value things outside our control, the less control we have";
@@ -90,7 +90,7 @@ export default function App() {
         id="pi"
         onClick={() => {
           if (color === "rgba(255,255,255,1)") {
-            setColor("rgba(255, 200, 200, .1");
+            setColor("rgba(255, 255, 255, 0.1)");
           } else {
             setColor("rgba(255,255,255,1)");
           }

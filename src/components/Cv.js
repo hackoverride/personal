@@ -47,15 +47,36 @@ export default function Cv() {
       <div>
         <h2>Education</h2>
         <p>
-          <p>Bachelor: System Development Programming | USN</p>
-          <p>Diploma in management: Hospitality | ICMS</p>
+          <p>
+            <span className="project_name">
+              Bachelor Information/System development
+            </span>{" "}
+            | USN
+          </p>
+          <p>
+            <span className="project_name">
+              Diploma in management: Hospitality
+            </span>{" "}
+            | ICMS
+          </p>
         </p>
       </div>
       <div>
         <h2>Work history</h2>
-        <p>Founder | Klikkit AS</p>
-        <p>TA in Web development | USN</p>
-        <p>Receptionist / Customer service | Farris Bad</p>
+        <p>
+          <span className="project_name">Developer</span> | Oslofjord convention
+          center (From: 28 February 2022)
+        </p>
+        <p>
+          <span className="project_name">Founder</span> | Klikkit AS
+        </p>
+        <p>
+          <span className="project_name">TA in Web development</span> | USN
+        </p>
+        <p>
+          <span className="project_name">Receptionist / Customer service</span>{" "}
+          | Farris Bad
+        </p>
       </div>
     </div>
   );
