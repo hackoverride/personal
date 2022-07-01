@@ -57,6 +57,7 @@ export default function Home() {
     setTimeout(() => {
       setUpdate(update + 1);
     }, 20);
+    // eslint-disable-next-line
   }, [setMatrix, update]);
 
 
