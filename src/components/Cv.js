@@ -64,11 +64,11 @@ export default function Cv() {
       <div>
         <h2>Work history</h2>
         <p>
-          <span className="project_name">Developer</span> | Oslofjord convention
+          <span className="project_name">Fullstack Developer</span> | Oslofjord convention
           center (From: 28 February 2022)
         </p>
         <p>
-          <span className="project_name">Founder</span> | Klikkit AS
+          <span className="project_name">Founder & Fullstack </span> | Klikkit AS
         </p>
         <p>
           <span className="project_name">TA in Web development</span> | USN
