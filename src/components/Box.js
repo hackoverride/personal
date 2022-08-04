@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import './box.scss';
 
 export default function Box({ data, id, copy, endFocus, close, currentPos }) {
-  const [size, setSize] = useState({ w: 30, h: 30 });
-  const [pos, setPos] = useState({ x: 20, y: 20 });
-  const [text, setText] = useState("");
+  const [size, setSize] = useState({ w: data.size.w, h: data.size.h });
+  const [pos, setPos] = useState({ x: data.pos.x, y: data.pos.y });
+  const [text, setText] = useState("" + data.text);
   const [offset, setOffset] = useState({});
   const [dragged, setDragged] = useState(false);
   const [editText, setEditText] = useState(false);
@@ -40,14 +40,14 @@ export default function Box({ data, id, copy, endFocus, close, currentPos }) {
 
   const stylized = {
     position: "absolute",
-    left: pos?.x ?? 20,
-    top: pos?.y ?? 20,
-    width: size?.w + "px",
     display: "grid",
-    height: size?.h + "px",
+    left: pos.x,
+    top: pos.y,
+    width: size.w + "vw",
+    height: size.h + "vh",
     borderRadius: 0.25 + "rem",
     zIndex: 2,
-    boxShadow: "0px 0px 12px rgba(30, 30, 30, 0.2)",
+    color: data.color,
   };
 
   return (
@@ -56,11 +56,7 @@ export default function Box({ data, id, copy, endFocus, close, currentPos }) {
       style={stylized}
       onContextMenu={(e) => {
         e.preventDefault();
-        copy({
-          pos,
-          size,
-          text,
-        });
+        copy({...data, pos: pos, size: size, text: text});
       }}
       className="tools_Box"
       onPointerDown={(e) => {
@@ -78,10 +74,10 @@ export default function Box({ data, id, copy, endFocus, close, currentPos }) {
       onPointerMove={(e) => {
         if (dragged) {
           if (e?.shiftKey) {
-            setSize({ w: size?.w + 1, h: size?.h + 1 });
+            setSize({ w: size?.w + 0.2, h: size?.h + 0.1 });
           } else if (e?.ctrlKey) {
-            if (size?.w > 20 && size.h > 20) {
-              setSize({ w: size.w - 1, h: size.h - 1 });
+            if (size?.w > 2 && size.h > 2) {
+              setSize({ w: size.w - 0.2, h: size.h - 0.1 });
             } else {
               /* se do nothing */
               setSize(size);

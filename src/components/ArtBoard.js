@@ -10,19 +10,21 @@ export default function ArtBoard() {
   const addNew = (copy) => {
     let newArray = [...boxes];
     let newId = Math.random();
-    if (copy) {
+    if (typeof copy?.id !== "undefined") {
       newArray.push({
         id: newId,
         pos: copy.pos,
         size: copy.size,
         text: copy.text,
+        color: copy.color,
       });
     } else {
       newArray.push({
         id: newId,
-        pos: { x: 20, y: 20 },
-        size: { w: 30, h: 30 },
+        pos: { x: 20, y: 50 },
+        size: { w: 3, h: 5 },
         text: "",
+        color: "rgb(98, 89, 163);",
       });
     }
 
@@ -86,15 +88,7 @@ export default function ArtBoard() {
         <button onClick={addNew} id="addBox">
           +
         </button>
-        <div
-          style={{
-            position: "fixed",
-            bottom: "5px",
-            left: "5px",
-            display: "grid",
-            zIndex: "1",
-            userSelect: "none",
-          }}
+        <div className="description"
         >
           <span>Rightclick = Copy</span>
           <span>Shift + drag = Increase</span>

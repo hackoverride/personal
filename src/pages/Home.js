@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import ArtBoard from "../components/ArtBoard";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const Canvas = ({ draw, height, width }) => {
   const canvas = useRef();
-
   useEffect(() => {
     const context = canvas.current.getContext("2d");
     draw(context);
@@ -17,6 +17,7 @@ const Canvas = ({ draw, height, width }) => {
 export default function Home() {
   const [matrix, setMatrix] = useState([]);
   const [update, setUpdate] = useState(0);
+  const navigate = useNavigate();
 
   const fullHeight = window.innerHeight;
   const fullWidth = window.innerWidth;
@@ -78,17 +79,18 @@ export default function Home() {
   return (
     <main lang="en">
       <Canvas
+        draggable={false}
         matrix={matrix}
         height={window.innerHeight}
         width={window.innerWidth}
         draw={draw}
       ></Canvas>
       <ArtBoard />
-      <div id="fogger"></div>
+      <Outlet />
       <div
         id="pi"
         onClick={() => {
-          /* s */
+          navigate("/pi");
         }}
       >
         &#960;

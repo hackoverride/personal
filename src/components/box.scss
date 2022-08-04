@@ -1,6 +1,7 @@
 .tools_Box {
-  background: rgba(255, 255, 255, 1);
+  background: rgba(179, 175, 221, 0.666);
   user-select: "none";
+  box-shadow: 0px 0px 6px rgb(176, 170, 220);
 }
 
 .closeButton {
@@ -8,12 +9,12 @@
     position: absolute;
     top: -4px;
     right: -4px;
-    width: 10px;
-    height: 10px;
+    width: max(12px, 0.5vw);
+    height: max(12px, 0.5vw);
     border-radius: 50%;
     background: rgba(255, 100, 100, 0.5);
     cursor: pointer;
     &:hover {
-        background: rgba(255, 100, 100, 1);
+        background: rgb(198, 40, 40);
     }
   }
