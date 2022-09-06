@@ -16,7 +16,6 @@ export default function ArtBoard() {
         pos: copy.pos,
         size: copy.size,
         text: copy.text,
-        color: copy.color,
       });
     } else {
       newArray.push({
@@ -24,7 +23,6 @@ export default function ArtBoard() {
         pos: { x: 20, y: 50 },
         size: { w: 3, h: 5 },
         text: "",
-        color: "rgb(98, 89, 163);",
       });
     }
 
@@ -70,13 +68,13 @@ export default function ArtBoard() {
     <div
       id="designBoard"
       onClick={() => {
-        setEndFocus(!endFocus);
+        setEndFocus(true);
       }}
       onPointerMove={(e) => {
         setCurrentPos({ x: e.clientX, y: e.clientY });
       }}
       onPointerUp={() => {
-        setEndFocus(!endFocus);
+        setEndFocus(false);
       }}
       onKeyUp={(e) => {
         if (e.key === "Escape") {
@@ -90,7 +88,7 @@ export default function ArtBoard() {
         </button>
         <div className="description"
         >
-          <span>Rightclick = Copy</span>
+          <span>Alt-click = Copy</span>
           <span>Shift + drag = Increase</span>
           <span>Ctrl + drag = Shrink</span>
           <span>Doubleclick = Edit text</span>

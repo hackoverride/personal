@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import './box.scss';
+import "./box.scss";
 
 export default function Box({ data, id, copy, endFocus, close, currentPos }) {
   const [size, setSize] = useState({ w: data.size.w, h: data.size.h });
@@ -11,13 +11,13 @@ export default function Box({ data, id, copy, endFocus, close, currentPos }) {
 
   useEffect(() => {
     if (dragged) {
-        setPos({
-          x: currentPos.x + offset.x + "px",
-          y: currentPos.y + offset.y + "px",
-        });
+      setPos({
+        x: currentPos.x + offset.x + "px",
+        y: currentPos.y + offset.y + "px",
+      });
     }
     // eslint-disable-next-line
-  }, [currentPos])
+  }, [currentPos]);
 
   useEffect(() => {
     if (data) {
@@ -56,10 +56,13 @@ export default function Box({ data, id, copy, endFocus, close, currentPos }) {
       style={stylized}
       onContextMenu={(e) => {
         e.preventDefault();
-        copy({...data, pos: pos, size: size, text: text});
       }}
       className="tools_Box"
       onPointerDown={(e) => {
+        console.log(e.altKey);
+        if (e.altKey) {
+          copy({ ...data, pos: pos, size: size, text: text });
+        }
         setDragged(true);
         let tempX = document.getElementById(id);
         setOffset({
@@ -69,7 +72,7 @@ export default function Box({ data, id, copy, endFocus, close, currentPos }) {
       }}
       onDoubleClick={() => {
         /* Make the text editable */
-        setEditText(!editText);
+        setEditText(true);
       }}
       onPointerMove={(e) => {
         if (dragged) {
@@ -89,14 +92,10 @@ export default function Box({ data, id, copy, endFocus, close, currentPos }) {
         setDragged(false);
       }}
     >
-      <span
-        title={"Close"}
-        className={"closeButton"}
-        onClick={close}
-      ></span>
+      <span title={"Close"} className={"closeButton"} onClick={close}></span>
       {editText ? (
         <textarea
-          style={{ width: "100%", height: '100%' }}
+          style={{ width: "100%", height: "100%" }}
           autoFocus={true}
           value={text}
           onKeyDown={(e) => {
@@ -109,7 +108,15 @@ export default function Box({ data, id, copy, endFocus, close, currentPos }) {
           }}
         />
       ) : (
-        <p style={{ placeSelf: "center", userSelect: "none", whiteSpace: 'pre-wrap' }}>{text}</p>
+        <p
+          style={{
+            placeSelf: "center",
+            userSelect: "none",
+            whiteSpace: "pre-wrap",
+          }}
+        >
+          {text}
+        </p>
       )}
     </div>
   );
