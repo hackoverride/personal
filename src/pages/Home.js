@@ -18,7 +18,6 @@ export default function Home() {
   const [matrix, setMatrix] = useState([]);
   const [update, setUpdate] = useState(0);
   const [PITrigger, setPITrigger] = useState(false);
-  const navigate = useNavigate();
 
   const fullHeight = window.innerHeight;
   const fullWidth = window.innerWidth;
@@ -38,36 +37,34 @@ export default function Home() {
           newY = fullHeight + Math.floor(Math.random() * 200);
         }
 
-        
-
         /* If PITrigger then updated with new colors! */
         if (PITrigger) {
           console.log(m.color);
-            let colorUpdate = {
-              r: m?.color?.r ?? 150,
-              g: m?.color?.g ?? 150,
-              b: m?.color?.b ?? 150,
-              a: 1,
+          let colorUpdate = {
+            r: m?.color?.r ?? 150,
+            g: m?.color?.g ?? 150,
+            b: m?.color?.b ?? 150,
+            a: 1,
+          };
+          // increment the color random on rainbow values
+          /* Randomize if update should occur */
+          let triggered = Math.random() > 0.5;
+          if (triggered) {
+            colorUpdate.r = colorUpdate.r + Math.floor(Math.random() * 10);
+            colorUpdate.g = colorUpdate.g + Math.floor(Math.random() * 10);
+            colorUpdate.b = colorUpdate.b + Math.floor(Math.random() * 10);
+            if (colorUpdate.r >= 255) {
+              colorUpdate.r = Math.floor(Math.random() * 155 + 100);
             }
-            // increment the color random on rainbow values
-            /* Randomize if update should occur */
-            let triggered = Math.random() > 0.5;
-            if (triggered) {
-              colorUpdate.r = colorUpdate.r + Math.floor(Math.random() * 10);
-              colorUpdate.g = colorUpdate.g + Math.floor(Math.random() * 10);
-              colorUpdate.b = colorUpdate.b + Math.floor(Math.random() * 10);
-              if (colorUpdate.r >= 255){
-                colorUpdate.r = Math.floor((Math.random() * 155) + 100);
-              }
-              if (colorUpdate.g >= 255){
-                colorUpdate.g = Math.floor((Math.random() * 155) + 100);
-              }
-              if (colorUpdate.b >= 255){
-                colorUpdate.b = Math.floor((Math.random() * 155) + 100);
-              }
+            if (colorUpdate.g >= 255) {
+              colorUpdate.g = Math.floor(Math.random() * 155 + 100);
             }
-            
-            newPositions.push({ ...m, y: newY, color: colorUpdate });
+            if (colorUpdate.b >= 255) {
+              colorUpdate.b = Math.floor(Math.random() * 155 + 100);
+            }
+          }
+
+          newPositions.push({ ...m, y: newY, color: colorUpdate });
         } else {
           const color = {
             r: 150,
@@ -77,12 +74,11 @@ export default function Home() {
           };
           newPositions.push({ ...m, y: newY, color: color });
         }
-        
       }
     } else {
       for (let i = 0; i < fullWidth / fontsize; i++) {
         let startPos = Math.random() * 1000 + fullHeight;
-        
+
         const color = {
           r: 150,
           g: 150,
@@ -114,7 +110,7 @@ export default function Home() {
     context.clearRect(0, 0, fullWidth, fullHeight);
     context.font = `${fontsize}px areal`;
     for (let m of matrix) {
-      context.fillStyle = `rgba(${m.color.r}, ${m.color.g}, ${m.color.b}, ${m.color.a})`;	
+      context.fillStyle = `rgba(${m.color.r}, ${m.color.g}, ${m.color.b}, ${m.color.a})`;
       context.fillText(m.char, m.x, m.y);
     }
   };
@@ -132,10 +128,10 @@ export default function Home() {
       <Outlet />
       {PITrigger && (
         <>
-        <div className="foggyBackground"></div>
-        <aside className="piContent">
-            <h1>PI</h1>
-        </aside>
+          <div className="foggyBackground"></div>
+          <aside className="piContent">
+            <h1></h1>
+          </aside>
         </>
       )}
       <div
