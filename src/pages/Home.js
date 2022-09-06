@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import ArtBoard from "../components/ArtBoard";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 const Canvas = ({ draw, height, width }) => {
   const canvas = useRef();
@@ -130,7 +130,7 @@ export default function Home() {
         <>
           <div className="foggyBackground"></div>
           <aside className="piContent">
-            <h1></h1>
+            <h1>3.14</h1>
           </aside>
         </>
       )}
