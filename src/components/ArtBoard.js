@@ -42,6 +42,7 @@ export default function ArtBoard() {
         setBoxes([]);
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const addNew = (copy) => {
