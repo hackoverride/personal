@@ -1,11 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./artboard.scss";
 import Box from "./Box";
+import { getRandomContent } from "../data/content";
 
 export default function ArtBoard() {
   const [boxes, setBoxes] = useState([]); // all tools (boxes etc)
   const [currentPos, setCurrentPos] = useState([]);
   const [endFocus, setEndFocus] = useState(false);
+  const [loadedContent, setLoadedContent] = useState(false);
+
+  useEffect(() => {
+    if (!loadedContent) {
+      const content = getRandomContent();
+
+      let newId = Math.random();
+      let boxWidth = window.innerWidth / 2;
+      let boxHeight = window.innerHeight / 3;
+      if (boxWidth > 400) {
+        boxWidth = 400;
+      }
+      if (boxHeight > 400) {
+        boxHeight = 400;
+      }
+
+      let tempText = content.title + "\n \n";
+      if (content.rolledContent) {
+        // if there is rolled content, pick a random one
+        tempText += content.rolledContent[Math.floor(Math.random() * content.rolledContent.length)];
+      }
+      let newBox = {
+        id: newId,
+        pos: { x: (window.innerWidth / 2) - (boxWidth / 2), y: window.innerHeight / 4 },
+        size: { w: boxWidth, h: boxHeight },
+        text: tempText,
+      };
+
+      setBoxes((prev) => [...prev, newBox]);
+      setLoadedContent(true);
+      return () => {
+        setLoadedContent(false);
+        setBoxes([]);
+      };
+    }
+  }, []);
 
   const addNew = (copy) => {
     let newArray = [...boxes];
@@ -67,6 +104,7 @@ export default function ArtBoard() {
   return (
     <div
       id="designBoard"
+      draggable={false}
       onClick={() => {
         setEndFocus(true);
       }}
@@ -82,21 +120,23 @@ export default function ArtBoard() {
         }
       }}
     >
-      <nav style={{ display: "flex" }}>
+      <nav style={{ display: "flex" }} draggable={false}>
         <button onClick={addNew} id="addBox">
           +
         </button>
-        <div className="description"
-        >
-          <span>Alt-click = Copy</span>
-          <span>Shift + drag = Increase</span>
-          <span>Ctrl + drag = Shrink</span>
-          <span>Doubleclick = Edit text</span>
-          <span>Drag = Move</span>
+        <div className="description" draggable={false}>
+          <span>Drag</span>
+          <span style={{ textAlign: "right", fontStyle: "italic" }}>Move</span>
+          <span>Alt + drag</span>
+          <span style={{ textAlign: "right", fontStyle: "italic" }}>Copy</span>
+          
+          <span>Doubleclick</span>
+          <span style={{ textAlign: "right", fontStyle: "italic" }}>
+            Edit text
+          </span>
         </div>
       </nav>
       {displayed_boxes}
     </div>
   );
 }
-

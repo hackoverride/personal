@@ -71,12 +71,17 @@ main {
   top: 2vh;
   right: 2vh;
   display: grid;
+  grid-template-columns: 1fr 1fr;
   z-index: 1;
   color: var(--text-color);
   user-select: none;
+  span {
+    border-bottom: 1px solid var(--text-color);
+  }
 }
 
 .foggyBackground {
+  user-select: none;
   position: fixed;
   bottom: 0;
   left: 0;

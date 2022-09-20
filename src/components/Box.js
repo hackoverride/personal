@@ -7,12 +7,66 @@ export default function Box({ data, id, copy, endFocus, close, currentPos }) {
   const [text, setText] = useState("" + data.text);
   const [offset, setOffset] = useState({});
   const [dragged, setDragged] = useState(false);
+  const [resize, setResize] = useState({
+    top: false,
+    right: false,
+    bottom: false,
+    left: false,
+  });
   const [editText, setEditText] = useState(false);
 
   useEffect(() => {
+    let thisBox = document.getElementById(id);
     if (dragged) {
       setPos({
         x: currentPos.x + offset.x + "px",
+        y: currentPos.y + offset.y + "px",
+      });
+    } else if (resize.left) {
+      /* ! Need to add the resize correctly */
+
+      // let leftEdge = thisBox.getBoundingClientRect().left;
+      // let newWidth = currentPos.x - leftEdge;
+      // setSize({
+      //   w: size.w + newWidth,
+      //   h: size.h,
+      // });
+      setPos({
+        x: currentPos.x + offset.x + "px",
+        y: pos.y,
+      });
+    } else if (resize.right){
+      let rightEdge = thisBox.getBoundingClientRect().right;
+      let newWidth = currentPos.x - rightEdge;
+      setSize({
+        w: size.w + newWidth,
+        h: size.h,
+      });
+    } else if (resize.bottom) {
+      // change the height of the box
+      let currentHight = thisBox.getBoundingClientRect().bottom;
+      let newHeight = currentPos.y - currentHight;
+      setSize({
+        w: size.w,
+        h: size.h + newHeight,
+      });
+    } else if (resize.top) {
+      // change the height of the box
+      let currentHight = thisBox.getBoundingClientRect().top;
+      let newHeight = Math.abs(currentPos.y - currentHight);
+      if (currentPos.y < currentHight) {
+        setSize({
+          w: size.w,
+          h: size.h + newHeight,
+        });
+      } else {
+        setSize({
+          w: size.w,
+          h: size.h - newHeight,
+        })
+      }
+      setPos({
+        x: pos.x,
         y: currentPos.y + offset.y + "px",
       });
     }
@@ -36,6 +90,13 @@ export default function Box({ data, id, copy, endFocus, close, currentPos }) {
 
   useEffect(() => {
     setEditText(false);
+    setDragged(false);
+    setResize({
+      top: false,
+      right: false,
+      bottom: false,
+      left: false,
+    });
   }, [endFocus]);
 
   const stylized = {
@@ -43,8 +104,12 @@ export default function Box({ data, id, copy, endFocus, close, currentPos }) {
     display: "grid",
     left: pos.x,
     top: pos.y,
-    width: size.w + "vw",
-    height: size.h + "vh",
+    width: size.w + "px",
+    minWidth: "30px",
+    maxWidth: "100vw",
+    height: size.h + "px",
+    minHeight: "30px",
+    maxHeight: "100vh",
     borderRadius: 0.25 + "rem",
     zIndex: 2,
     color: data.color,
@@ -59,34 +124,62 @@ export default function Box({ data, id, copy, endFocus, close, currentPos }) {
       }}
       className="tools_Box"
       onPointerDown={(e) => {
-        console.log(e.altKey);
+        // First lets check if it is close to an edge area on the box, then we rezise.
+        let thisBox = document.getElementById(id);
+        let leftEdgePos = thisBox.offsetLeft;
+        let rightEdgePos = thisBox.offsetLeft + thisBox.offsetWidth;
+        let topEdgePos = thisBox.offsetTop;
+        let bottomEdgePos = thisBox.offsetTop + thisBox.offsetHeight;
+
+        // depending on the position of the pointer when down, then we resize or more the box.
+        if (e.clientX > leftEdgePos && e.clientX < leftEdgePos + 10) {
+
+          setResize({
+            ...resize,
+            left: true,
+          });
+        } else if (e.clientX > rightEdgePos - 10 && e.clientX < rightEdgePos) {
+          //right
+
+          setResize({
+            ...resize,
+            right: true,
+          });
+        } else if (e.clientY > topEdgePos && e.clientY < topEdgePos + 10) {
+          //top
+
+          setResize({
+            ...resize,
+            top: true,
+          });
+        } else if (
+          e.clientY > bottomEdgePos - 10 &&
+          e.clientY < bottomEdgePos
+        ) {
+          //bottom
+
+          setResize({
+            ...resize,
+            bottom: true,
+          });
+        } else {
+          // move
+
+          setDragged(true);
+        }
+
         if (e.altKey) {
           copy({ ...data, pos: pos, size: size, text: text });
         }
-        setDragged(true);
-        let tempX = document.getElementById(id);
+
         setOffset({
-          x: tempX?.offsetLeft - e.clientX,
-          y: tempX?.offsetTop - e.clientY,
+          x: thisBox?.offsetLeft - e.clientX,
+          y: thisBox?.offsetTop - e.clientY,
         });
       }}
       onDoubleClick={() => {
         /* Make the text editable */
         setEditText(true);
-      }}
-      onPointerMove={(e) => {
-        if (dragged) {
-          if (e?.shiftKey) {
-            setSize({ w: size?.w + 0.2, h: size?.h + 0.1 });
-          } else if (e?.ctrlKey) {
-            if (size?.w > 2 && size.h > 2) {
-              setSize({ w: size.w - 0.2, h: size.h - 0.1 });
-            } else {
-              /* se do nothing */
-              setSize(size);
-            }
-          }
-        }
       }}
       onPointerUp={() => {
         setDragged(false);

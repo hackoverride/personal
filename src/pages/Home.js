@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import ArtBoard from "../components/ArtBoard";
-import { Outlet } from "react-router-dom";
+import { useOutlet } from "react-router-dom";
 
 const Canvas = ({ draw, height, width }) => {
   const canvas = useRef();
@@ -14,10 +14,12 @@ const Canvas = ({ draw, height, width }) => {
   );
 };
 
+
 export default function Home() {
   const [matrix, setMatrix] = useState([]);
   const [update, setUpdate] = useState(0);
   const [PITrigger, setPITrigger] = useState(false);
+  const outlet = useOutlet();
 
   const fullHeight = window.innerHeight;
   const fullWidth = window.innerWidth;
@@ -39,7 +41,6 @@ export default function Home() {
 
         /* If PITrigger then updated with new colors! */
         if (PITrigger) {
-          console.log(m.color);
           let colorUpdate = {
             r: m?.color?.r ?? 150,
             g: m?.color?.g ?? 150,
@@ -116,7 +117,7 @@ export default function Home() {
   };
 
   return (
-    <main lang="en">
+    <main lang="en" draggable="false">
       <Canvas
         draggable={false}
         matrix={matrix}
@@ -124,14 +125,19 @@ export default function Home() {
         width={window.innerWidth}
         draw={draw}
       ></Canvas>
-      <ArtBoard />
-      <Outlet />
+      {outlet ? outlet
+      : <ArtBoard />}
       {PITrigger && (
         <>
-          <div className="foggyBackground"></div>
-          <aside className="piContent">
-            <h1>3.14</h1>
-          </aside>
+          <div className="foggyBackground" draggable={false}></div>
+          <aside id="felix">
+              <div className="eyeSocket">
+                <div id="eye_left" className="eye"></div>
+              </div>
+              <div className="eyeSocket">
+                <div id="eye_right" className="eye"></div>
+              </div>
+            </aside>
         </>
       )}
       <div
