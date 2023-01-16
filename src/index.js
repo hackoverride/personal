@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Home from "./pages/Home";
+// import { ChatZone } from "./pages/ChatZone";
+import Home from './pages/Home'
 import "./main.scss";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -11,3 +12,4 @@ root.render(
     </main>
   </React.StrictMode>
 );
+
