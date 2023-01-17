@@ -3,7 +3,7 @@ import useWebSocket, { ReadyState } from "react-use-websocket";
 
 export const ChatZone = () => {
   //Public API that will echo messages sent to it back to the client
-  const [socketUrl, setSocketUrl] = useState("ws://localhost:8080/ws");
+  const [socketUrl, setSocketUrl] = useState('wss://s8243.lon1.piesocket.com/v3/1?api_key=W0ACEGuUBjDvedXnD8526Fgqs95BpkvlLrDmBDBU');
   const [messageHistory, setMessageHistory] = useState([]);
   const [lastCommand, setLastCommand] = useState([""]);
   let messageInput = useRef(null);
@@ -29,6 +29,14 @@ export const ChatZone = () => {
   }, [lastMessage, setMessageHistory]);
 
   const handleClickSendMessage = useCallback(() => {
+    if (!messageInput.current.value) return;
+
+    // If we have a message starting with /connect we want to connect to a new socket
+    if (messageInput.current.value.startsWith("/connect")) {
+      setSocketUrl(messageInput.current.value.split(" ")[1]);
+      return;
+    }
+
     let previousCommands = [...lastCommand];
     previousCommands.push(messageInput.current.value);
     setLastCommand(previousCommands);
@@ -63,7 +71,7 @@ export const ChatZone = () => {
             handleClickSendMessage();
           }}
         >
-          <input autoFocus type="text" name="messageInput" autoComplete="off" ref={messageInput} onKeyUp={(e) => {
+          <input autoFocus={true} type="text" name="messageInput" autoComplete="off" ref={messageInput} onKeyUp={(e) => {
             if (e.key === "ArrowUp") {
               loadLastCommand();
             }
