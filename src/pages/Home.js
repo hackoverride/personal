@@ -85,7 +85,7 @@ export default function Home() {
                 </button>
                 {showInfo.info === "Klikkit" && <Klikkit />}
                 {showInfo.info === "OCC" && <OCC />}
-                {showInfo.info === "WeStudy" && <WeStudy />}
+                
                 {showInfo.info === "Digikort" && <Digikort />}
               </div>
             </div>
@@ -162,43 +162,10 @@ export default function Home() {
                   </button>
                 </div>
                 <div className="project__card">
-                  <h3>WeStudy</h3>
-                  <span>
-                    Tech: Go, React, Oauth2, MongoDB, MySQL, Heroku and
-                    Cloudflare.
-                  </span>
-                  <p>
-                    I am a tech-advisor for the startup WeStudy. I advise and
-                    help with the development of the first MVP prototype.
-                  </p>
-                  <p>
-                    The system is an LMS (Learning Management System) for
-                    students at schools and universities. The system is built
-                    with the goal of making it easy for students to learn.
-                  </p>
-                  <p>
-                    The system is currently in development and will be released
-                    in the fall of 2023.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (showInfo.show) {
-                        setShowInfo({
-                          show: false,
-                          info: "",
-                        });
-                      } else {
-                        setShowInfo({
-                          show: true,
-                          info: "WeStudy",
-                        });
-                      }
-                    }}
-                  >
-                    Tell me more
-                  </button>
-                </div>
+                  <h3>NA</h3>
+                  </div>
+                  
+                
                 <div className="project__card">
                   <h3>Digikort.no</h3>
                   <span>
