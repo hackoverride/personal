@@ -3,16 +3,16 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from "three";
 
-function Box() {
+function Sphere({ position, size = 0.2 }) {
   const mesh = useRef();
 
   // Rotate mesh every frame
-  useFrame(() => (mesh.current.rotation.x = mesh.current.rotation.y += 0.01));
+  useFrame(() => (mesh.current.rotation.x = mesh.current.rotation.y += 0.005));
 
   return (
-    <mesh ref={mesh}>
-      <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-      <meshStandardMaterial attach="material" color={'orange'} />
+    <mesh ref={mesh} position={position}>
+      <sphereBufferGeometry attach="geometry" args={[size, 32, 32]} />
+      <meshStandardMaterial attach="material" color={'#ff3344'} />
     </mesh>
   );
 }
@@ -24,11 +24,33 @@ export default function ThreeTest() {
   }, []);
 
   return (
-    <div>
-      <Canvas style={{ height: '400px', width: '400px' }}>
+    <div style={{display: 'flex', position: 'relative', placeContent: 'center'}}>
+      <Canvas style={{ height: '400px', width: '400px', border: '1px solid red' }}>
         <ambientLight />
         <pointLight position={[10, 10, 10]} />
-        <Box />
+        {/* midsize tops */}
+        <Sphere position={[0, 2.1, 0]}  size={0.4} />
+        <Sphere position={[0.8, 1.2, 0]}  size={0.4} />
+        <Sphere position={[-0.8, 1.2, 0]}  size={0.4} />
+        {/* smaller tops */}
+        <Sphere position={[1, 2.05, 0]}  size={0.3} />
+        <Sphere position={[-1, 2.05, 0]}  size={0.3} />
+        {/* smaller spheres */}
+        <Sphere position={[0, 0.6, 0]}  size={0.3} />
+        <Sphere position={[-1.6, 0.4, 0]}  size={0.3} />
+        <Sphere position={[1.6, 0.4, 0]}  size={0.3} />
+        <Sphere position={[0, -1.2, 0]}  size={0.3} />
+        {/* left and right midszie */}
+        <Sphere position={[-2.6, 0.3, 0]}  size={0.4} />
+        <Sphere position={[2.6, 0.3, 0]}  size={0.4} />
+        {/* Bottom sphere */}
+        <Sphere position={[0, -3, 0]}  size={0.35} />
+        {/* <Sphere position={[1.2, 0, 0]} />
+        <Sphere position={[0, 1.2, 0]} />
+        <Sphere position={[0, -1.2, 0]} />
+        
+        <Sphere position={[2, -1.2, 0]} />
+        <Sphere position={[0, 0, 0]} /> */}
         <OrbitControls />
       </Canvas>
     </div>
