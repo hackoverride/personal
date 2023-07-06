@@ -1,8 +1,8 @@
 const projects = [
     {
-        id: 01,
+        id: 1,
         company: "Klikkit.no",
-        title: "Founder, CEO and Architect developer",
+        title: "Founder, CEO and Architect",
         tech: "React, MongoDB, SQL, Node/Express, Heroku, Azure, Cloudflare",
         integrations: "Twilio, Nets Easy, Meterogogisk Institutt, Azure S3",
         languages: "Go, JavaScript, JSX, TypeScript, HTML, CSS / SCSS",
@@ -12,7 +12,7 @@ const projects = [
         alt: "Klikkit.no",
     },
     {
-        id: 02,
+        id: 2,
         company: "Oslofjord Convention Center",
         title: "System Developer",
         tech: "React, Vue, MongoDB, SQL, .NET, NginX, Azure, Docker, Kubernetes",
