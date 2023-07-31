@@ -3,6 +3,16 @@ import ThreeTest from "./ThreeTest";
 
 export default function Home() {
   const [mainContent, setMainContent] = useState(true);
+
+  useEffect(() => {
+    // If the get request includes strawberry or ?strawberry=true
+    // then set the mainContent to false
+    if (window.location.search.includes("strawberry=true")) {
+      setMainContent(false);
+    }
+
+    
+  }, [])
   return (
     <>
       {mainContent ? (
@@ -19,7 +29,7 @@ export default function Home() {
           />
           <div className="hero fancyAnimateIn">
             <h1>Michael Lund</h1>
-            <span>Fullstack Developer - Solution Architect</span>
+            <span>Fullstack Developer - Passionate Solution Finder</span>
           </div>
           <div className="content">
             <p>
@@ -29,13 +39,13 @@ export default function Home() {
             </p>
             <p>
               Welcome to my personal website. I'm an experienced and dedicated
-              software developer and architect, with a deep passion for
+              software developer, with a deep passion for
               optimizing, scaling, and designing both intricate and robust
               systems.
             </p>
             <p>
               In my career, I have mastered a variety of programming languages
-              including .Net, Java, JavaScript, Python, and most notably, Go
+              including .Net, Java, JavaScript, Python, and Go
               (Golang). I have a special affinity for Go's simplicity,
               efficiency, and its powerful support for concurrent programming,
               which makes it my go-to choice for creating high-performing,
@@ -102,8 +112,8 @@ export default function Home() {
                 </p>
                 <p>
                   I was also responsible for the development of the HR and
-                  Payroll platform integrated with the OCC system for time
-                  tracking and staff management.
+                  Payroll platform integration with the OCC system for time
+                  tracking, payroll and staff management.
                 </p>
                
               </div>
