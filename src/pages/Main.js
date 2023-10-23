@@ -8,16 +8,16 @@ import { Particles } from "./Particles";
 import "./main.scss";
 import RnD from "./RnD";
 
-const piStyle = {
-  button: {
-    background: "#fff",
-    color: "#000",
-  },
-  background: "#fff",
-  color: "#000",
-  padding: "10px",
-  borderRadius: "50%",
-};
+// const piStyle = {
+//   button: {
+//     background: "#fff",
+//     color: "#000",
+//   },
+//   background: "#fff",
+//   color: "#000",
+//   padding: "10px",
+//   borderRadius: "50%",
+// };
 
 function BurgerButton({ onClick, showMenu }) {
   return (
