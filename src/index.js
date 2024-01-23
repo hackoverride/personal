@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-// import { ChatZone } from "./pages/ChatZone";
 import Main from "./pages/Main";
+import './style/index.scss';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <main>
       <Main />
-    </main>
   </React.StrictMode>
 );
+
+console.log('test');
